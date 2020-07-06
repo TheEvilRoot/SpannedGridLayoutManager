@@ -38,7 +38,7 @@ ext {
     siteUrl = 'https://github.com/Arasthel/SpannedGridLayoutManager'
     gitUrl = 'https://github.com/Arasthel/SpannedGridLayoutManager.git'
 
-    libraryVersion = '3.0.2'
+    libraryVersion = '3.0.3'
 
     developerId = 'Arasthel'
     developerName = 'Jorge Martín Epsinosa'
@@ -86,9 +86,9 @@ publishing {
         bar(MavenPublication) {
             groupId 'com.arasthel'
             artifactId 'spannedgridlayoutmanager'
-            version '3.0.2'
+            version libraryVersion
             artifact(sourceJar)
-            artifact("$buildDir/outputs/aar/bar-release.aar")
+            artifact("$buildDir/outputs/aar/spannedgridlayoutmanager-release.aar")
         }
     }
     repositories {
