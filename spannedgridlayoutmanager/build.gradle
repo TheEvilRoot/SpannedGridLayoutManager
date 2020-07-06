@@ -49,12 +49,12 @@ ext {
 }
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     buildToolsVersion buildtools_version
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName libraryVersion
     }
@@ -71,7 +71,7 @@ tasks.withType(Javadoc) {
 }
 
 dependencies {
-    implementation "com.android.support:recyclerview-v7:$support_library_version"
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 

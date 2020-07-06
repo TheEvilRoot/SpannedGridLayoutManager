@@ -1,7 +1,8 @@
 package com.arasthel.spannedgridlayoutmanager.sample
 
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.arasthel.spannedgridlayoutmanager.SpanSize
 import com.arasthel.spannedgridlayoutmanager.SpannedGridLayoutManager
 import com.arasthel.spannedgridlayoutmanager.SpannedGridLayoutManager.Orientation.*
@@ -9,11 +10,12 @@ import com.arasthel.spannedgridlayoutmanager.SpannedGridLayoutManager.Orientatio
 /**
  * Created by Jorge Martín on 24/5/17.
  */
-class MainActivity: android.support.v7.app.AppCompatActivity() {
+class MainActivity: AppCompatActivity() {
 
-    val recyclerview: RecyclerView by lazy { findViewById<RecyclerView>(R.id.recyclerView) }
+    private val recyclerview: RecyclerView by lazy { findViewById<RecyclerView>(R.id.recyclerView) }
+    private val adapter: GridItemAdapter by lazy { GridItemAdapter() }
 
-    override fun onCreate(savedInstanceState: android.os.Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
@@ -25,12 +27,9 @@ class MainActivity: android.support.v7.app.AppCompatActivity() {
 
         recyclerview.addItemDecoration(SpaceItemDecorator(left = 10, top = 10, right = 10, bottom = 10))
 
-        val adapter = GridItemAdapter()
-
-        if (savedInstanceState != null && savedInstanceState.containsKey("clicked")) {
-            val clicked = savedInstanceState.getBooleanArray("clicked")!!
+        savedInstanceState?.getBooleanArray("clicked")?.run {
             adapter.clickedItems.clear()
-            adapter.clickedItems.addAll(clicked.toList())
+            adapter.clickedItems.addAll(toList())
         }
 
         spannedGridLayoutManager.spanSizeLookup = SpannedGridLayoutManager.SpanSizeLookup { position ->
@@ -44,10 +43,10 @@ class MainActivity: android.support.v7.app.AppCompatActivity() {
         recyclerview.adapter = adapter
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState?.putBooleanArray("clicked", (recyclerview.adapter as GridItemAdapter).clickedItems.toBooleanArray())
+        outState.putBooleanArray("clicked", adapter.clickedItems.toBooleanArray())
 
     }
 
